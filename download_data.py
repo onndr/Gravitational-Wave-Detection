@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import kaggle as kg
 
 
 KAGGLE_DATASET = "tentotheminus9/gravity-spy-gravitational-waves"
@@ -17,6 +16,8 @@ if __name__ == "__main__":
 
     os.environ['KAGGLE_USERNAME'] = args.kaggle_username
     os.environ['KAGGLE_KEY'] = args.kaggle_key
+
+    import kaggle as kg
 
     kg.api.authenticate()
     kg.api.dataset_download_files(

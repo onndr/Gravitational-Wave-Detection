@@ -17,7 +17,7 @@ The devkit on [github](https://github.com/Gravity-Spy/GravitySpy), devkit [docum
 Create environment
 
 ```bash
-conda env create -f environment.yml -n gs_env
+conda env create -f env.yml -n gs_env
 conda activate gs_env
 ```
 
