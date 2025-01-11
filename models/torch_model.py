@@ -23,11 +23,10 @@ train_loader = DataLoader(train_dataset, batch_size=30, shuffle=True)
 # print(len(train_dataset.classes))
 
 
-# Define the CNN architecture
 class CNNModel(nn.Module):
     def __init__(self):
         super(CNNModel, self).__init__()
-        self.conv1 = nn.Conv2d(1, 128, kernel_size=5)  # Input channels changed to 1
+        self.conv1 = nn.Conv2d(1, 128, kernel_size=5)
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
         self.conv2 = nn.Conv2d(128, 128, kernel_size=5)
         self.relu = nn.ReLU()
@@ -37,7 +36,6 @@ class CNNModel(nn.Module):
         out = self._forward_conv(dummy_input)
         self.flattened_size = out.numel()
 
-        # Fully connected layers
         self.fc1 = nn.Linear(self.flattened_size, 256)
         self.fc2 = nn.Linear(256, 22)
 
@@ -55,10 +53,10 @@ class CNNModel(nn.Module):
 
 
 def train_model(model, train_loader, num_epochs, device):
-    criterion = nn.CrossEntropyLoss()  # Cross-entropy loss
-    optimizer = optim.Adadelta(model.parameters())  # Adadelta optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adadelta(model.parameters())
 
-    model.train()  # Set the model to training mode
+    model.train()
     model.to(device)
 
     for epoch in range(num_epochs):
@@ -69,13 +67,11 @@ def train_model(model, train_loader, num_epochs, device):
             # Zero the parameter gradients
             optimizer.zero_grad()
 
-            # Forward pass
             outputs = model(inputs)  # Raw logits
 
             # Compute loss using raw logits and integer labels
             loss = criterion(outputs, labels)
 
-            # Backward pass and optimization
             loss.backward()
             optimizer.step()
 
@@ -87,23 +83,16 @@ def train_model(model, train_loader, num_epochs, device):
     print("Training complete!")
 
 
-# Save the model
 def save_model(model, filename):
     with open(filename, "wb") as f:
         pickle.dump(model, f)
     print(f"Model saved to {filename}")
 
 
-# Main execution
 if __name__ == "__main__":
-    # Initialize the model
     model = CNNModel()
 
-    # Define device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    train_model(model, train_loader, num_epochs=30, device=device)
 
-    # Train the model
-    train_model(model, train_loader, num_epochs=130, device=device)
-
-    # Save the trained model
     save_model(model, "cnn_model.pkl")
