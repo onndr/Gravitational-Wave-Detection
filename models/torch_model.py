@@ -21,6 +21,9 @@ train_dataset = datasets.ImageFolder(root=data_dir, transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=30, shuffle=True)
 # print(train_dataset.class_to_idx)
 # print(len(train_dataset.classes))
+test_data_dir = "./data/test/test"
+test_dataset = datasets.ImageFolder(root=test_data_dir, transform=transform)
+test_loader = DataLoader(test_dataset, batch_size=30, shuffle=False)
 
 
 class CNNModel(nn.Module):
@@ -89,10 +92,37 @@ def save_model(model, filename):
     print(f"Model saved to {filename}")
 
 
+def calculate_model_accuracy(model_filename, test_loader, device):
+    with open(model_filename, "rb") as f:
+        model = pickle.load(f)
+
+    model.eval()
+    model.to(device)
+
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+        for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+
+            outputs = model(inputs)
+            _, predicted = torch.max(outputs, 1)
+
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = correct / total * 100
+    print(f"Accuracy: {accuracy:.2f}%")
+    return accuracy
+
+
 if __name__ == "__main__":
-    model = CNNModel()
+    # model = CNNModel()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_model(model, train_loader, num_epochs=30, device=device)
+    # train_model(model, train_loader, num_epochs=30, device=device)
 
-    save_model(model, "cnn_model.pkl")
+    # save_model(model, "cnn_model.pkl")
+
+    calculate_model_accuracy("pickles/basic_model_30_epochs.pkl", test_loader, device)
