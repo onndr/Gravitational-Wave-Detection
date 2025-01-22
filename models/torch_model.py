@@ -123,6 +123,6 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # train_model(model, train_loader, num_epochs=30, device=device)
 
-    # save_model(model, "cnn_model.pkl")
+    # save_model(model, "./checkpoints/torch_cnn.pkl")
 
-    calculate_model_accuracy("pickles/basic_model_30_epochs.pkl", test_loader, device)
+    calculate_model_accuracy("./checkpoints/torch_cnn.pkl", test_loader, device)
