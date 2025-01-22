@@ -14,13 +14,27 @@ The devkit on [github](https://github.com/Gravity-Spy/GravitySpy), devkit [docum
 
 ## Instructions
 
+In this project we created different ML models:
+
+- torch lightning model in a .ipynb notebook
+- tensorflow keras model in a .ipynb notebook
+
+- torch lightning model in a .py script
+- torch model in a .py script
+
+We recommend using the torch lightning notebook
+
 ### Download dataset
 
+In orded to download the dataset you need to have an active Kaggle account and create a token in [account settings](https://www.kaggle.com/settings)
+
+Make sure you have free 4GB of storage for the dataset
+
 ```bash
-python download_data.py --dataset_path ./data --kaggle_username {name} --kaggle_key {key}
+python download_data.py --dataset_path ./data --kaggle_username {name} --kaggle_key {token}
 ```
 
-### Torch models
+### Torch and torch lightning models
 
 Create environment
 
@@ -29,13 +43,27 @@ conda env create -f ./envs/torch_env.yml -n gs_torch_env
 conda activate gs_torch_env
 ```
 
-Train CNN model
+#### Torch lightning model notebook
+
+Train the torch lightning CNN model in [jupiter notebook](./models/lightning_model.ipynb)
+
+#### Torch lightning model script
+
+Train CNN model using a single script
+
+```bash
+python ./models/lightning_model.py
+```
+
+#### Torch model script
+
+Train CNN model using a single script
 
 ```bash
 python ./models/torch_model.py
 ```
 
-### Keras models
+### Tensorflow keras model notebook
 
 Create environment, ignore the numpy version conflicts messages
 
@@ -48,6 +76,7 @@ pip install pandas
 pip install numpy==1.23.0
 pip install sklearn
 pip install seaborn
+pip install ipykernel
 ```
 
-Train and evaluate keras CNN model in [jupiter notebook](./models/keras_model.ipynb)
+Train the keras CNN model in [jupiter notebook](./models/keras_model.ipynb)
