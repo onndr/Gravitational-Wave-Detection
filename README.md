@@ -12,6 +12,8 @@ The data was acquired from [kaggle](https://www.kaggle.com/datasets/tentotheminu
 
 The devkit on [github](https://github.com/Gravity-Spy/GravitySpy), devkit [documentation](https://gravity-spy.github.io/)
 
+---
+
 ## Instructions
 
 In this project we created different ML models:
@@ -24,6 +26,8 @@ In this project we created different ML models:
 
 We recommend using the torch lightning notebook
 
+---
+
 ### Download dataset
 
 In orded to download the dataset you need to have an active Kaggle account and create a token in [account settings](https://www.kaggle.com/settings)
@@ -34,6 +38,8 @@ Make sure you have free 4GB of storage for the dataset
 python download_data.py --dataset_path ./data --kaggle_username {name} --kaggle_key {token}
 ```
 
+---
+
 ### Torch and torch lightning models
 
 Create environment
@@ -43,9 +49,13 @@ conda env create -f ./envs/torch_env.yml -n gs_torch_env
 conda activate gs_torch_env
 ```
 
+---
+
 #### Torch lightning model notebook
 
 Train the torch lightning CNN model in [jupiter notebook](./models/lightning_model.ipynb)
+
+---
 
 #### Torch lightning model script
 
@@ -55,6 +65,8 @@ Train CNN model using a single script
 python ./models/lightning_model.py
 ```
 
+---
+
 #### Torch model script
 
 Train CNN model using a single script
@@ -62,6 +74,8 @@ Train CNN model using a single script
 ```bash
 python ./models/torch_model.py
 ```
+
+---
 
 ### Tensorflow keras model notebook
 
